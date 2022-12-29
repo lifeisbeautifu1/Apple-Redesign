@@ -1,5 +1,7 @@
 # Apple Redesign
 
+Apple Redesign build with Next.js 🍎
+
 ## Stack
 
 Next.js Next-Auth Sanity.io Stripe TailwindCSS Redux Toolkit
