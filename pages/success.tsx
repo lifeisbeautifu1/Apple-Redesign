@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Currency from "react-currency-formatter";
 import { useMediaQuery } from "react-responsive";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 
 import { Button } from "../components";
 import { fetchLineItems } from "../utils/fetchLineItems";
@@ -225,11 +225,16 @@ function Success({ products }: Props) {
 
 export default Success;
 
-export const getServerSideProps: GetServerSideProps<Props> = async ({
-  query,
-}) => {
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context
+) => {
+  const { query } = context;
+
   const sessionId = query.session_id as string;
+
   const products = await fetchLineItems(sessionId);
+
+  const session = getSession(context);
 
   return {
     props: {
