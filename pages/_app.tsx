@@ -1,8 +1,19 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import "../styles/globals.css";
+import { Provider } from "react-redux";
+import { Toaster } from "react-hot-toast";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+import { store } from "../redux/store";
+import { SessionProvider } from "next-auth/react";
+
+function MyApp({ Component, pageProps: { session, ...pageProps } }: any) {
+  return (
+    <SessionProvider session={session}>
+      <Provider store={store}>
+        <Toaster />
+        <Component {...pageProps} />
+      </Provider>
+    </SessionProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;
